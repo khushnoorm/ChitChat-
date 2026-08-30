@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChitChat 💬</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -21,11 +20,10 @@
 
         <div class="header-info">
             <h2>My Friend</h2>
-            <p>Online</p>
+            <p>Online • Last seen just now</p>
         </div>
 
     </div>
-
 
     <!-- Messages -->
     <div class="messages">
@@ -42,8 +40,15 @@
             Welcome to ChitChat 💬
         </div>
 
-    </div>
+        <div class="message received">
+            This is a modern chat interface
+        </div>
 
+        <div class="message sent">
+            Thanks! It looks amazing! ✨
+        </div>
+
+    </div>
 
     <!-- Message Input -->
     <div class="input-area">
@@ -51,15 +56,18 @@
         <input 
             type="text" 
             placeholder="Type a message..."
+            id="messageInput"
         >
 
-        <button>
+        <button id="sendBtn" title="Send message">
             ➤
         </button>
 
     </div>
 
 </div>
+
 <script src="script.js"></script>
+
 </body>
 </html>
