@@ -26,8 +26,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const input = document.querySelector(".input-area input");
-const button = document.querySelector(".input-area button");
+const input = document.getElementById("messageInput");
+const button = document.getElementById("sendBtn");
 const messages = document.querySelector(".messages");
 
 // Same room for you and your friend
@@ -54,6 +54,7 @@ async function sendMessage() {
     });
 
     input.value = "";
+    input.focus();
   } catch (error) {
     console.error("Message send error:", error);
     alert("Message send nahi hua.");
@@ -80,10 +81,11 @@ onSnapshot(q, (snapshot) => {
     messages.appendChild(message);
   });
 
+  // Auto scroll to bottom
   messages.scrollTop = messages.scrollHeight;
 });
 
-// Send button
+// Send button click
 button.addEventListener("click", sendMessage);
 
 // Enter key
@@ -92,3 +94,6 @@ input.addEventListener("keydown", function(event) {
     sendMessage();
   }
 });
+
+// Focus input on load
+input.focus();
