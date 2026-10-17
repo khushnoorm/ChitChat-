@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta
+    name="description"
+    content="Log in or create your account on Chit Chat — Private Messaging Web Application."
+  />
+  <title>Account Access — Chit Chat</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+  <link rel="apple-touch-icon" href="./assets/icon.svg" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body data-page="login">
+  <!-- Top Navigation Header -->
+  <header id="public-navbar" class="site-navbar">
+    <div class="navbar-inner">
+      <a href="./index.html" class="brand-link" aria-label="Chit Chat Home">
+        <img src="./assets/icon.svg" alt="Chit Chat Logo" class="brand-logo" width="36" height="36" />
+        <span>Chit Chat</span>
+      </a>
+
+      <div class="navbar-actions">
+        <button
+          type="button"
+          id="btn-firebase-status"
+          class="badge badge-unconfigured"
+          title="Configure or inspect Firebase connection"
+        >
+          <span id="firebase-status-dot" class="status-dot warning"></span>
+          <span id="firebase-status-label">Setup Firebase</span>
+        </button>
+
+        <button
+          type="button"
+          id="btn-theme-toggle-nav"
+          class="icon-btn"
+          aria-label="Toggle dark and light theme"
+          title="Switch theme"
+        >
+          <span id="theme-icon-nav" aria-hidden="true">☀️</span>
+        </button>
+
+        <a href="./index.html" class="btn btn-ghost btn-sm">← Home</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Standalone Authentication View -->
+  <main id="view-auth" class="auth-wrapper" aria-label="Authentication">
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h1 id="auth-heading">Welcome to Chit Chat</h1>
+        <p id="auth-subheading">Sign in or create an account for private messaging</p>
+      </div>
+
+      <div class="auth-tabs" role="tablist">
+        <button
+          type="button"
+          id="tab-login"
+          class="auth-tab-btn active"
+          role="tab"
+          aria-selected="true"
+        >
+          Log In
+        </button>
+        <button
+          type="button"
+          id="tab-signup"
+          class="auth-tab-btn"
+          role="tab"
+          aria-selected="false"
+        >
+          Sign Up
+        </button>
+        <button
+          type="button"
+          id="tab-reset"
+          class="auth-tab-btn"
+          role="tab"
+          aria-selected="false"
+        >
+          Reset
+        </button>
+      </div>
+
+      <div id="auth-alert" class="alert-box hidden" role="alert"></div>
+
+      <form id="form-login" novalidate>
+        <div class="form-group">
+          <label for="login-email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            id="login-email"
+            class="form-input"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password</label>
+          <div class="input-with-action">
+            <input
+              type="password"
+              id="login-password"
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <button
+              type="button"
+              class="input-action-btn"
+              data-toggle-password="login-password"
+              aria-label="Show or hide password"
+            >
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-submit-login" class="btn btn-primary btn-block">
+          Log In
+        </button>
+      </form>
+
+      <form id="form-signup" class="hidden" novalidate>
+        <div class="form-group">
+          <label for="signup-name" class="form-label">Display Name</label>
+          <input
+            type="text"
+            id="signup-name"
+            class="form-input"
+            placeholder="e.g. Khushnoor"
+            maxlength="60"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-username" class="form-label">Unique Handle (@username)</label>
+          <input
+            type="text"
+            id="signup-username"
+            class="form-input"
+            placeholder="e.g. khushnoor_m"
+            maxlength="30"
+            autocomplete="username"
+            required
+          />
+          <span class="form-hint">3–30 lowercase letters, numbers, underscores, or dots.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            id="signup-email"
+            class="form-input"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password" class="form-label">Password</label>
+          <div class="input-with-action">
+            <input
+              type="password"
+              id="signup-password"
+              class="form-input"
+              placeholder="At least 8 characters"
+              autocomplete="new-password"
+              required
+            />
+            <button
+              type="button"
+              class="input-action-btn"
+              data-toggle-password="signup-password"
+              aria-label="Show or hide password"
+            >
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-confirm" class="form-label">Confirm Password</label>
+          <input
+            type="password"
+            id="signup-confirm"
+            class="form-input"
+            placeholder="Re-enter your password"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-bio" class="form-label">Status / Bio (Optional)</label>
+          <input
+            type="text"
+            id="signup-bio"
+            class="form-input"
+            placeholder="Hey there! I am using Chit Chat."
+            maxlength="160"
+          />
+        </div>
+
+        <button type="submit" id="btn-submit-signup" class="btn btn-primary btn-block">
+          Create Account &amp; Verify Email
+        </button>
+      </form>
+
+      <form id="form-reset" class="hidden" novalidate>
+        <div class="form-group">
+          <label for="reset-email" class="form-label">Account Email Address</label>
+          <input
+            type="email"
+            id="reset-email"
+            class="form-input"
+            placeholder="Enter your registered email"
+            autocomplete="email"
+            required
+          />
+          <span class="form-hint">
+            We will send a secure password reset link via Firebase Authentication.
+          </span>
+        </div>
+
+        <button type="submit" id="btn-submit-reset" class="btn btn-primary btn-block">
+          Send Password Reset Email
+        </button>
+      </form>
+
+      <div class="auth-footer-links">
+        <a href="./index.html" class="btn btn-ghost btn-sm">← Landing Page</a>
+        <button type="button" id="auth-open-config" class="btn btn-ghost btn-sm">
+          ⚙️ Firebase Config
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <div id="modal-firebase-config" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="firebase-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="firebase-modal-title">Configure Firebase Backend</h2>
+        <button type="button" id="btn-close-firebase-modal" class="icon-btn" aria-label="Close Firebase setup">
+          ✕
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Paste your Firebase Web App configuration JSON or snippet below to connect Authentication, Cloud Firestore, and Storage.
+        </p>
+
+        <div id="firebase-config-alert" class="alert-box hidden" role="alert"></div>
+
+        <div class="form-group">
+          <label for="firebase-config-textarea" class="form-label">
+            Firebase Web Config (JSON or <code>const firebaseConfig = { ... }</code>)
+          </label>
+          <textarea
+            id="firebase-config-textarea"
+            class="form-textarea"
+            rows="7"
+            placeholder='{
+  "apiKey": "YOUR_API_KEY",
+  "authDomain": "your-project.firebaseapp.com",
+  "projectId": "your-project",
+  "storageBucket": "your-project.firebasestorage.app",
+  "messagingSenderId": "1234567890",
+  "appId": "1:1234567890:web:abcdef123456"
+}'
+            style="font-family: var(--font-mono); font-size: 0.82rem;"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-clear-firebase-config" class="btn btn-danger btn-sm">
+          Clear Saved Config
+        </button>
+        <button type="button" id="btn-save-firebase-config" class="btn btn-primary btn-sm">
+          Save &amp; Connect Firebase
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

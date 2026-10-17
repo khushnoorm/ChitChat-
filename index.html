@@ -1,73 +1,1108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChitChat 💬</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta
+    name="description"
+    content="Chit Chat — Modern, privacy-first real-time private messaging web application powered by Firebase Authentication, Cloud Firestore security rules, and optional WebCrypto end-to-end encryption."
+  />
+  <title>Chit Chat — Private Messaging</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+  <link rel="apple-touch-icon" href="./assets/icon.svg" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
+<body data-page="index">
+  <!-- Top Navigation Header (Shown on Landing & Auth Views) -->
+  <header id="public-navbar" class="site-navbar">
+    <div class="navbar-inner">
+      <a href="#landing" id="nav-brand-link" class="brand-link" aria-label="Chit Chat Home">
+        <img src="./assets/icon.svg" alt="Chit Chat Logo" class="brand-logo" width="36" height="36" />
+        <span>Chit Chat</span>
+      </a>
 
-<body>
-
-<div class="chat-container">
-
-    <!-- Header -->
-    <div class="chat-header">
-
-        <div class="profile">
-            👤
-        </div>
-
-        <div class="header-info">
-            <h2>My Friend</h2>
-            <p>Online • Last seen just now</p>
-        </div>
-
-    </div>
-
-    <!-- Messages -->
-    <div class="messages">
-
-        <div class="message received">
-            Hello 👋
-        </div>
-
-        <div class="message sent">
-            Hey! 😊
-        </div>
-
-        <div class="message received">
-            Welcome to ChitChat 💬
-        </div>
-
-        <div class="message received">
-            This is a modern chat interface
-        </div>
-
-        <div class="message sent">
-            Thanks! It looks amazing! ✨
-        </div>
-
-    </div>
-
-    <!-- Message Input -->
-    <div class="input-area">
-
-        <input 
-            type="text" 
-            placeholder="Type a message..."
-            id="messageInput"
+      <div class="navbar-actions">
+        <button
+          type="button"
+          id="btn-firebase-status"
+          class="badge badge-unconfigured"
+          title="Configure or inspect Firebase connection"
         >
-
-        <button id="sendBtn" title="Send message">
-            ➤
+          <span id="firebase-status-dot" class="status-dot warning"></span>
+          <span id="firebase-status-label">Setup Firebase</span>
         </button>
 
+        <button
+          type="button"
+          id="btn-theme-toggle-nav"
+          class="icon-btn"
+          aria-label="Toggle dark and light theme"
+          title="Switch theme"
+        >
+          <span id="theme-icon-nav" aria-hidden="true">☀️</span>
+        </button>
+
+        <button type="button" id="nav-btn-login" class="btn btn-ghost btn-sm">
+          Log In
+        </button>
+        <button type="button" id="nav-btn-signup" class="btn btn-primary btn-sm">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- VIEW 1: Landing Page -->
+  <main id="view-landing" class="landing-container">
+    <section class="hero-grid" aria-labelledby="hero-heading">
+      <div>
+        <div class="hero-eyebrow">
+          <span>🔒 Participant-Isolated Architecture • Optional WebCrypto E2EE</span>
+        </div>
+        <h1 id="hero-heading" class="hero-title">
+          Private conversations designed for <span class="gradient-text">clarity &amp; trust.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Chit Chat is a fast, mobile-first private messaging web application. Every conversation is protected by strict Cloud Firestore backend security rules, real-time presence and delivery indicators, and optional browser-native ECDH P-256 + AES-256-GCM encryption.
+        </p>
+
+        <div class="hero-cta-group">
+          <button type="button" id="hero-btn-signup" class="btn btn-primary">
+            Create Free Account
+          </button>
+          <button type="button" id="hero-btn-login" class="btn btn-secondary">
+            Log In to Chat
+          </button>
+          <button type="button" id="hero-btn-config" class="btn btn-ghost">
+            ⚙️ Configure Firebase
+          </button>
+        </div>
+
+        <ul class="hero-trust-list">
+          <li>✓ Strict Participant Access Control</li>
+          <li>✓ Android &amp; Desktop Responsive</li>
+          <li>✓ Zero Embedded Admin Secrets</li>
+        </ul>
+      </div>
+
+      <!-- Interactive Live Visual Preview Card -->
+      <div class="hero-preview-card" aria-label="Chit Chat Interface Preview">
+        <div class="preview-card-header">
+          <div class="preview-user-row">
+            <div class="avatar avatar-sm" style="background-color: #4f46e5;">
+              <span>AK</span>
+              <span class="avatar-presence online"></span>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem;">Aarav Kumar</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">@aarav • Online now</div>
+            </div>
+          </div>
+          <span class="badge badge-security">🔒 E2EE Active</span>
+        </div>
+
+        <div class="preview-card-body">
+          <div class="preview-bubble incoming">
+            Hey! Did you check the new security rules for our private repository?
+            <div class="preview-meta">10:14 AM</div>
+          </div>
+          <div class="preview-bubble outgoing">
+            Yes! Only verified conversation participants can read or send messages now. Even direct document ID tampering is blocked by Firestore rules.
+            <div class="preview-meta">10:15 AM • ✓✓ Read</div>
+          </div>
+          <div class="preview-bubble incoming">
+            Awesome — and it runs super smoothly on my Android phone too! 🚀
+            <div class="preview-meta">10:16 AM</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Highlights Section -->
+    <section class="section-block" aria-labelledby="features-heading">
+      <div class="section-header">
+        <h2 id="features-heading" class="section-title">Everything Needed for Private Messaging</h2>
+        <p class="section-desc">
+          Built with native ES modules, responsive CSS variables, and real-time Firebase synchronization without heavy framework bloat.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🛡️</div>
+          <h3>Backend-Enforced Privacy</h3>
+          <p>
+            Access control is enforced by <code>firestore.rules</code> and <code>storage.rules</code> on the server—never just hidden in the UI. Non-participants cannot read or inject messages.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🔐</div>
+          <h3>Optional WebCrypto E2EE</h3>
+          <p>
+            Enable genuine client-side encryption per chat using browser-native ECDH (P-256) key exchange and 256-bit AES-GCM with verifiable SHA-256 safety fingerprints.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3>Real-Time Sync &amp; Receipts</h3>
+          <p>
+            Instant message streaming, live typing indicators, unread counters, and sent/delivered/read checkmarks that respect your privacy preferences.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">📎</div>
+          <h3>Validated Attachments</h3>
+          <p>
+            Share images, PDFs, and text files with strict MIME-type allowlists, 5 MB size caps, and automatic client-side image optimization for mobile data savings.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">💬</div>
+          <h3>Rich Message Controls</h3>
+          <p>
+            Quote and reply to specific messages, edit or delete your own sent messages, react with emojis, and archive threads cleanly.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">📱</div>
+          <h3>Android-First Ergonomics</h3>
+          <p>
+            Designed for one-handed mobile use with 44px+ touch targets, dynamic viewport sizing (<code>100dvh</code>), dark/light themes, and PWA home-screen install support.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Privacy & Security Transparency Section -->
+    <section class="section-block" aria-labelledby="security-heading">
+      <div class="section-header">
+        <h2 id="security-heading" class="section-title">Honest, Transparent Security Architecture</h2>
+        <p class="section-desc">
+          We distinguish clearly between transport/database rule protection and client-side end-to-end encryption.
+        </p>
+      </div>
+
+      <div class="security-architecture-grid">
+        <div class="security-card">
+          <h3>🔒 Standard Mode: TLS + Firestore Security Rules</h3>
+          <ul class="security-list">
+            <li>
+              <span>•</span>
+              <span><strong>Participant Isolation:</strong> Every conversation document stores a locked 2-user <code>participants</code> array verified on every read and write.</span>
+            </li>
+            <li>
+              <span>•</span>
+              <span><strong>Anti-Impersonation:</strong> Firestore rules verify <code>request.resource.data.senderId == request.auth.uid</code> and enforce server timestamps (<code>request.time</code>).</span>
+            </li>
+            <li>
+              <span>•</span>
+              <span><strong>Abuse &amp; Block Controls:</strong> Blocking a user immediately halts message creation in Firestore rules as well as the interface.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="security-card">
+          <h3>🗝️ E2EE Mode: WebCrypto ECDH P-256 + AES-256-GCM</h3>
+          <ul class="security-list">
+            <li>
+              <span>•</span>
+              <span><strong>Device Key Generation:</strong> Your browser generates an ECDH P-256 keypair. The private key stays in local device storage; only the public JWK is shared.</span>
+            </li>
+            <li>
+              <span>•</span>
+              <span><strong>Per-Message Encryption:</strong> When E2EE is toggled on in a chat, messages are encrypted client-side with a derived 256-bit AES-GCM key and unique 96-bit IV before reaching Firestore.</span>
+            </li>
+            <li>
+              <span>•</span>
+              <span><strong>Key Verification:</strong> Compare SHA-256 public key fingerprints with your contact to verify identity.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <footer class="landing-footer">
+        <div>
+          <strong>Chit Chat</strong> — Private Messaging Web Application
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <a href="./login.html">Standalone Login Page</a>
+          <a href="#auth" id="footer-link-auth">Account Access</a>
+          <button type="button" id="footer-btn-config" class="btn btn-ghost btn-sm">
+            Firebase Setup
+          </button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- VIEW 2: Authentication View -->
+  <section id="view-auth" class="auth-wrapper hidden" aria-label="Authentication">
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h1 id="auth-heading">Welcome to Chit Chat</h1>
+        <p id="auth-subheading">Sign in to access your private conversations</p>
+      </div>
+
+      <div class="auth-tabs" role="tablist">
+        <button
+          type="button"
+          id="tab-login"
+          class="auth-tab-btn active"
+          role="tab"
+          aria-selected="true"
+        >
+          Log In
+        </button>
+        <button
+          type="button"
+          id="tab-signup"
+          class="auth-tab-btn"
+          role="tab"
+          aria-selected="false"
+        >
+          Sign Up
+        </button>
+        <button
+          type="button"
+          id="tab-reset"
+          class="auth-tab-btn"
+          role="tab"
+          aria-selected="false"
+        >
+          Reset
+        </button>
+      </div>
+
+      <div id="auth-alert" class="alert-box hidden" role="alert"></div>
+
+      <!-- Form 1: Log In -->
+      <form id="form-login" novalidate>
+        <div class="form-group">
+          <label for="login-email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            id="login-email"
+            class="form-input"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password</label>
+          <div class="input-with-action">
+            <input
+              type="password"
+              id="login-password"
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <button
+              type="button"
+              class="input-action-btn"
+              data-toggle-password="login-password"
+              aria-label="Show or hide password"
+            >
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-submit-login" class="btn btn-primary btn-block">
+          Log In
+        </button>
+      </form>
+
+      <!-- Form 2: Sign Up & Initial Profile Setup -->
+      <form id="form-signup" class="hidden" novalidate>
+        <div class="form-group">
+          <label for="signup-name" class="form-label">Display Name</label>
+          <input
+            type="text"
+            id="signup-name"
+            class="form-input"
+            placeholder="e.g. Khushnoor"
+            maxlength="60"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-username" class="form-label">Unique Handle (@username)</label>
+          <input
+            type="text"
+            id="signup-username"
+            class="form-input"
+            placeholder="e.g. khushnoor_m"
+            maxlength="30"
+            autocomplete="username"
+            required
+          />
+          <span class="form-hint">3–30 lowercase letters, numbers, underscores, or dots.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            id="signup-email"
+            class="form-input"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password" class="form-label">Password</label>
+          <div class="input-with-action">
+            <input
+              type="password"
+              id="signup-password"
+              class="form-input"
+              placeholder="At least 8 characters"
+              autocomplete="new-password"
+              required
+            />
+            <button
+              type="button"
+              class="input-action-btn"
+              data-toggle-password="signup-password"
+              aria-label="Show or hide password"
+            >
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-confirm" class="form-label">Confirm Password</label>
+          <input
+            type="password"
+            id="signup-confirm"
+            class="form-input"
+            placeholder="Re-enter your password"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-bio" class="form-label">Status / Bio (Optional)</label>
+          <input
+            type="text"
+            id="signup-bio"
+            class="form-input"
+            placeholder="Hey there! I am using Chit Chat."
+            maxlength="160"
+          />
+        </div>
+
+        <button type="submit" id="btn-submit-signup" class="btn btn-primary btn-block">
+          Create Account &amp; Verify Email
+        </button>
+      </form>
+
+      <!-- Form 3: Password Reset -->
+      <form id="form-reset" class="hidden" novalidate>
+        <div class="form-group">
+          <label for="reset-email" class="form-label">Account Email Address</label>
+          <input
+            type="email"
+            id="reset-email"
+            class="form-input"
+            placeholder="Enter your registered email"
+            autocomplete="email"
+            required
+          />
+          <span class="form-hint">
+            We will send a secure password reset link via Firebase Authentication.
+          </span>
+        </div>
+
+        <button type="submit" id="btn-submit-reset" class="btn btn-primary btn-block">
+          Send Password Reset Email
+        </button>
+      </form>
+
+      <div class="auth-footer-links">
+        <button type="button" id="auth-back-landing" class="btn btn-ghost btn-sm">
+          ← Back to Home
+        </button>
+        <button type="button" id="auth-open-config" class="btn btn-ghost btn-sm">
+          ⚙️ Firebase Config
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 3 & 4: Authenticated Chat Dashboard & Private Chat Window -->
+  <div id="view-workspace" class="workspace-shell hidden">
+    <div id="email-verification-banner" class="verification-banner hidden" role="region" aria-label="Email verification notice">
+      <span>
+        📧 Your email address is not verified yet. Please check your inbox for the verification link.
+      </span>
+      <div class="verification-banner-actions">
+        <button type="button" id="btn-resend-verification" class="btn btn-secondary btn-sm">
+          Resend Email
+        </button>
+        <button type="button" id="btn-refresh-verification" class="btn btn-primary btn-sm">
+          I've Verified
+        </button>
+      </div>
     </div>
 
-</div>
+    <div id="workspace-main-grid" class="workspace-main">
+      <!-- LEFT PANE: Chat Dashboard Sidebar -->
+      <aside class="dashboard-sidebar" aria-label="Conversations and User Directory">
+        <div class="sidebar-topbar">
+          <div
+            id="sidebar-user-profile-trigger"
+            class="current-user-chip"
+            role="button"
+            tabindex="0"
+            title="Open Profile &amp; Settings"
+          >
+            <div id="current-user-avatar" class="avatar avatar-sm">
+              <span>U</span>
+              <span class="avatar-presence online"></span>
+            </div>
+            <div class="user-chip-meta">
+              <div id="current-user-name" class="user-chip-name">Loading...</div>
+              <div id="current-user-handle" class="user-chip-handle">@user</div>
+            </div>
+          </div>
 
-<script src="script.js"></script>
+          <div class="sidebar-toolbar-actions">
+            <button
+              type="button"
+              id="btn-new-chat"
+              class="icon-btn"
+              title="Find user &amp; start new private chat"
+              aria-label="Start new chat"
+            >
+              ➕
+            </button>
+            <button
+              type="button"
+              id="btn-theme-toggle-app"
+              class="icon-btn"
+              title="Toggle theme"
+              aria-label="Toggle theme"
+            >
+              <span id="theme-icon-app">☀️</span>
+            </button>
+            <button
+              type="button"
+              id="btn-open-settings"
+              class="icon-btn"
+              title="Profile &amp; Settings"
+              aria-label="Open profile and settings"
+            >
+              ⚙️
+            </button>
+          </div>
+        </div>
 
+        <div class="sidebar-search-box">
+          <div class="search-input-wrap">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input
+              type="search"
+              id="dashboard-search-input"
+              class="search-input"
+              placeholder="Search chats or @username..."
+              aria-label="Search conversations or users"
+            />
+            <button
+              type="button"
+              id="btn-clear-search"
+              class="search-clear-btn hidden"
+              aria-label="Clear search"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar-filter-tabs" role="tablist" aria-label="Conversation filters">
+          <button
+            type="button"
+            class="filter-pill active"
+            data-filter="all"
+            role="tab"
+            aria-selected="true"
+          >
+            All Chats
+          </button>
+          <button
+            type="button"
+            class="filter-pill"
+            data-filter="unread"
+            role="tab"
+            aria-selected="false"
+          >
+            Unread <span id="filter-unread-count"></span>
+          </button>
+          <button
+            type="button"
+            class="filter-pill"
+            data-filter="archived"
+            role="tab"
+            aria-selected="false"
+          >
+            Archived
+          </button>
+          <button
+            type="button"
+            class="filter-pill"
+            data-filter="directory"
+            role="tab"
+            aria-selected="false"
+          >
+            Find Users
+          </button>
+        </div>
+
+        <div id="conversation-list" class="conversation-list" role="list">
+          <div class="empty-list-state">
+            No conversations yet. Tap <strong>Find Users</strong> or <strong>➕</strong> to start a private chat.
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT PANE: Private Chat Window -->
+      <section class="chat-panel" aria-label="Private Chat Window">
+        <div id="chat-empty-state" class="chat-empty-state">
+          <div class="chat-empty-icon" aria-hidden="true">💬</div>
+          <h2>Select a Private Conversation</h2>
+          <p>
+            Choose an existing thread from the left or search the directory by <code>@username</code> or email to start a private 1-to-1 chat.
+          </p>
+          <button type="button" id="btn-empty-find-users" class="btn btn-primary btn-sm">
+            🔍 Find Users to Chat With
+          </button>
+        </div>
+
+        <div id="active-chat-container" class="active-chat-container hidden">
+          <header class="chat-window-header">
+            <div class="chat-header-left">
+              <button
+                type="button"
+                id="btn-mobile-back"
+                class="icon-btn mobile-back-btn"
+                aria-label="Back to conversation list"
+                title="Back to chats"
+              >
+                ←
+              </button>
+
+              <div id="chat-peer-avatar" class="avatar avatar-sm">
+                <span>P</span>
+                <span id="chat-peer-presence-dot" class="avatar-presence"></span>
+              </div>
+
+              <div class="chat-peer-info">
+                <div id="chat-peer-name" class="chat-peer-name">Contact Name</div>
+                <div id="chat-peer-status" class="chat-peer-status">Offline</div>
+              </div>
+            </div>
+
+            <div class="chat-header-actions">
+              <button
+                type="button"
+                id="btn-toggle-e2ee"
+                class="badge badge-security"
+                title="Toggle optional WebCrypto ECDH+AES-GCM End-to-End Encryption"
+              >
+                🛡️ Standard
+              </button>
+
+              <button
+                type="button"
+                id="btn-verify-keys"
+                class="icon-btn"
+                title="Inspect Security &amp; E2EE Key Fingerprints"
+                aria-label="Security details"
+              >
+                🔐
+              </button>
+
+              <button
+                type="button"
+                id="btn-archive-chat"
+                class="icon-btn"
+                title="Archive or unarchive conversation"
+                aria-label="Archive conversation"
+              >
+                📥
+              </button>
+
+              <button
+                type="button"
+                id="btn-block-user"
+                class="icon-btn"
+                title="Block or unblock user"
+                aria-label="Block user"
+              >
+                🚫
+              </button>
+
+              <button
+                type="button"
+                id="btn-report-user"
+                class="icon-btn"
+                title="Report user for abuse"
+                aria-label="Report user"
+              >
+                🚩
+              </button>
+
+              <button
+                type="button"
+                id="btn-delete-chat"
+                class="icon-btn"
+                title="Delete conversation"
+                aria-label="Delete conversation"
+              >
+                🗑️
+              </button>
+            </div>
+          </header>
+
+          <div class="chat-security-strip">
+            <span id="chat-security-description">
+              🛡️ Protected by Cloud Firestore Participant Rules &amp; TLS.
+            </span>
+            <button
+              type="button"
+              id="btn-security-learn-more"
+              class="btn btn-ghost btn-sm"
+              style="min-height: 26px; padding: 0.1rem 0.5rem; font-size: 0.74rem;"
+            >
+              Verify Keys
+            </button>
+          </div>
+
+          <div id="messages-stream" class="messages-stream" role="log" aria-live="polite"></div>
+
+          <div id="composer-context-bar" class="composer-context-bar hidden">
+            <div class="composer-context-info">
+              <div id="composer-context-title" class="composer-context-title">Replying to</div>
+              <div id="composer-context-text" class="composer-context-text"></div>
+            </div>
+            <button
+              type="button"
+              id="btn-cancel-context"
+              class="icon-btn"
+              aria-label="Cancel reply or edit"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div id="attachment-preview-bar" class="composer-context-bar hidden">
+            <div class="composer-context-info">
+              <div class="composer-context-title">📎 Staged Attachment</div>
+              <div id="attachment-preview-name" class="composer-context-text"></div>
+            </div>
+            <button
+              type="button"
+              id="btn-remove-attachment"
+              class="icon-btn"
+              aria-label="Remove attachment"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div id="blocked-conversation-banner" class="blocked-notice-bar hidden">
+            <span id="blocked-banner-text">
+              🚫 This conversation is currently blocked. New messages cannot be sent.
+            </span>
+            <button type="button" id="btn-unblock-banner" class="btn btn-secondary btn-sm">
+              Unblock
+            </button>
+          </div>
+
+          <form id="chat-composer-form" class="chat-composer" novalidate>
+            <div id="emoji-popover" class="emoji-popover hidden" role="dialog" aria-label="Emoji picker">
+              <div id="emoji-grid" class="emoji-grid"></div>
+            </div>
+
+            <button
+              type="button"
+              id="btn-emoji-picker"
+              class="icon-btn"
+              aria-label="Insert emoji"
+              title="Emojis"
+            >
+              😊
+            </button>
+
+            <label
+              for="chat-attachment-input"
+              class="icon-btn"
+              title="Attach image, PDF, or text file (max 5 MB)"
+              aria-label="Attach file"
+              style="cursor: pointer;"
+            >
+              📎
+            </label>
+            <input
+              type="file"
+              id="chat-attachment-input"
+              class="sr-only"
+              accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,text/plain"
+            />
+
+            <div class="composer-input-wrap">
+              <textarea
+                id="chat-message-input"
+                class="composer-textarea"
+                rows="1"
+                maxlength="4000"
+                placeholder="Write a private message..."
+                aria-label="Message text"
+              ></textarea>
+              <div id="composer-char-count" class="composer-char-count">0 / 4000</div>
+            </div>
+
+            <button
+              type="submit"
+              id="btn-send-message"
+              class="send-msg-btn"
+              aria-label="Send message"
+              title="Send message"
+            >
+              ➤
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- MODAL 1: User Profile & Settings -->
+  <div id="modal-settings" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="settings-modal-title">Profile &amp; Settings</h2>
+        <button type="button" id="btn-close-settings" class="icon-btn" aria-label="Close settings">
+          ✕
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div id="settings-alert" class="alert-box hidden" role="alert"></div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">User Profile</div>
+          <div class="profile-avatar-editor">
+            <div id="settings-avatar-preview" class="avatar avatar-lg">
+              <span>U</span>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <label for="settings-avatar-file" class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                  📷 Upload Photo
+                </label>
+                <input
+                  type="file"
+                  id="settings-avatar-file"
+                  class="sr-only"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                />
+                <button type="button" id="btn-clear-avatar" class="btn btn-ghost btn-sm">
+                  Use Initials
+                </button>
+              </div>
+              <div id="settings-color-swatches" class="color-swatch-row" aria-label="Avatar color"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="settings-display-name" class="form-label">Display Name</label>
+            <input type="text" id="settings-display-name" class="form-input" maxlength="60" />
+          </div>
+
+          <div class="form-group">
+            <label for="settings-username" class="form-label">Username (@handle)</label>
+            <input type="text" id="settings-username" class="form-input" maxlength="30" />
+          </div>
+
+          <div class="form-group">
+            <label for="settings-bio" class="form-label">About / Status</label>
+            <input type="text" id="settings-bio" class="form-input" maxlength="250" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Account Email</label>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+              <span id="settings-email-display" style="font-size: 0.9rem; color: var(--text-secondary);"></span>
+              <span id="settings-email-badge" class="badge badge-unconfigured">Unverified</span>
+            </div>
+          </div>
+
+          <button type="button" id="btn-save-profile" class="btn btn-primary btn-sm">
+            Save Profile Changes
+          </button>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Appearance &amp; Theme</div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="settings-theme-select" class="form-label">Color Theme</label>
+            <select id="settings-theme-select" class="form-select">
+              <option value="dark">🌙 Dark Theme (Slate Indigo)</option>
+              <option value="light">☀️ Light Theme (Crisp Daylight)</option>
+              <option value="system">💻 Match Device System Setting</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Privacy &amp; Security</div>
+
+          <div class="toggle-row">
+            <div class="toggle-label-group">
+              <div class="toggle-label-title">Show Online &amp; Last Seen Status</div>
+              <div class="toggle-label-desc">Let contacts see when you are active in Chit Chat.</div>
+            </div>
+            <input type="checkbox" id="toggle-online-status" checked />
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-label-group">
+              <div class="toggle-label-title">Send Read Receipts (✓✓)</div>
+              <div class="toggle-label-desc">Notify contacts when you have read their messages.</div>
+            </div>
+            <input type="checkbox" id="toggle-read-receipts" checked />
+          </div>
+
+          <div style="margin-top: 0.85rem;">
+            <div class="form-label" style="margin-bottom: 0.35rem;">
+              Your Device WebCrypto E2EE Public Key Fingerprint (ECDH P-256)
+            </div>
+            <div id="settings-key-fingerprint" class="fingerprint-box">Generating...</div>
+            <div style="margin-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+              <span class="form-hint">Used for optional client-side end-to-end encrypted chats.</span>
+              <button type="button" id="btn-rotate-keys" class="btn btn-secondary btn-sm">
+                🔄 Rotate Keypair
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Notification Preferences</div>
+
+          <div class="toggle-row">
+            <div class="toggle-label-group">
+              <div class="toggle-label-title">Browser Notifications</div>
+              <div class="toggle-label-desc">Show system alerts when new messages arrive in background tabs.</div>
+            </div>
+            <input type="checkbox" id="toggle-browser-notifications" />
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-label-group">
+              <div class="toggle-label-title">Message Sound Effects</div>
+              <div class="toggle-label-desc">Play a subtle chime on incoming messages.</div>
+            </div>
+            <input type="checkbox" id="toggle-sound-effects" checked />
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-label-group">
+              <div class="toggle-label-title">Show Message Previews</div>
+              <div class="toggle-label-desc">Include message snippet inside notification banners.</div>
+            </div>
+            <input type="checkbox" id="toggle-message-preview" checked />
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Session &amp; Backend</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+            <button type="button" id="btn-settings-firebase" class="btn btn-secondary btn-sm">
+              ⚙️ Firebase Connection Settings
+            </button>
+            <button type="button" id="btn-logout" class="btn btn-danger btn-sm">
+              🚪 Log Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Firebase Backend Configuration Setup -->
+  <div id="modal-firebase-config" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="firebase-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="firebase-modal-title">Configure Firebase Backend</h2>
+        <button type="button" id="btn-close-firebase-modal" class="icon-btn" aria-label="Close Firebase setup">
+          ✕
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Chit Chat runs as a static site on GitHub Pages and connects directly to your Firebase project for Authentication, Cloud Firestore, and Storage. Paste your Firebase Web App config snippet below (or configure <code>js/firebase-config.js</code>).
+        </p>
+
+        <div id="firebase-config-alert" class="alert-box hidden" role="alert"></div>
+
+        <div class="form-group">
+          <label for="firebase-config-textarea" class="form-label">
+            Paste Firebase Web Config (JSON or <code>const firebaseConfig = { ... }</code>)
+          </label>
+          <textarea
+            id="firebase-config-textarea"
+            class="form-textarea"
+            rows="7"
+            placeholder='{
+  "apiKey": "YOUR_API_KEY",
+  "authDomain": "your-project.firebaseapp.com",
+  "projectId": "your-project",
+  "storageBucket": "your-project.firebasestorage.app",
+  "messagingSenderId": "1234567890",
+  "appId": "1:1234567890:web:abcdef123456"
+}'
+            style="font-family: var(--font-mono); font-size: 0.82rem;"
+          ></textarea>
+          <span class="form-hint">
+            Stored locally in your browser's <code>localStorage</code>. Never paste service-account private keys or admin tokens.
+          </span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-clear-firebase-config" class="btn btn-danger btn-sm">
+          Clear Saved Config
+        </button>
+        <button type="button" id="btn-save-firebase-config" class="btn btn-primary btn-sm">
+          Save &amp; Connect Firebase
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Report User -->
+  <div id="modal-report" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="report-modal-title">Report User</h2>
+        <button type="button" id="btn-close-report-modal" class="icon-btn" aria-label="Close report dialog">
+          ✕
+        </button>
+      </div>
+
+      <form id="form-report-user">
+        <div class="modal-body">
+          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Submit a confidential safety report to the <code>/reports</code> collection. You can also block this user immediately.
+          </p>
+
+          <div class="form-group">
+            <label for="report-reason" class="form-label">Reason for Report</label>
+            <select id="report-reason" class="form-select" required>
+              <option value="Spam or unwanted messages">Spam or unwanted messages</option>
+              <option value="Harassment or abusive behavior">Harassment or abusive behavior</option>
+              <option value="Impersonation or fake profile">Impersonation or fake profile</option>
+              <option value="Malicious link or attachment">Malicious link or attachment</option>
+              <option value="Other safety concern">Other safety concern</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="report-details" class="form-label">Additional Details (Optional)</label>
+            <textarea
+              id="report-details"
+              class="form-textarea"
+              maxlength="1500"
+              placeholder="Provide any context to help review this report..."
+            ></textarea>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-label-group">
+              <div class="toggle-label-title">Also block this user</div>
+              <div class="toggle-label-desc">Prevent them from sending further messages in this conversation.</div>
+            </div>
+            <input type="checkbox" id="report-also-block" checked />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-report" class="btn btn-ghost btn-sm">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-danger btn-sm">
+            Submit Report
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Conversation Security & Key Verification -->
+  <div id="modal-security-info" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="security-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="security-modal-title">Conversation Security &amp; Verification</h2>
+        <button type="button" id="btn-close-security-modal" class="icon-btn" aria-label="Close security info">
+          ✕
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="form-label">Current Protection Mode</div>
+          <div id="security-modal-mode-badge" class="badge badge-security" style="align-self: flex-start; margin-top: 0.25rem;">
+            Standard Mode (Firestore Rules + TLS)
+          </div>
+        </div>
+
+        <p style="font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          In <strong>Standard Mode</strong>, messages are protected in transit via HTTPS/TLS and restricted to the 2 conversation participants by Cloud Firestore Security Rules. When <strong>WebCrypto E2EE Mode</strong> is toggled on, messages are additionally encrypted on your device using ECDH (P-256) + AES-256-GCM before being sent to Firestore.
+        </p>
+
+        <div class="form-group">
+          <div class="form-label">Your Public Key Fingerprint (SHA-256)</div>
+          <div id="security-modal-my-fp" class="fingerprint-box">Unavailable</div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Contact's Public Key Fingerprint (SHA-256)</div>
+          <div id="security-modal-peer-fp" class="fingerprint-box">Unavailable</div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-close-security-footer" class="btn btn-primary btn-sm">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Application Entry Module -->
+  <script type="module" src="./js/app.js"></script>
 </body>
 </html>
