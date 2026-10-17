@@ -1,0 +1,26 @@
+# Environment & Local Secrets
+.env
+.env.*
+*.local
+js/firebase-config.local.js
+firebase-service-account*.json
+*-firebase-adminsdk-*.json
+
+# Firebase CLI cache & logs
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Dependencies & Build Directories
+node_modules/
+dist/
+build/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

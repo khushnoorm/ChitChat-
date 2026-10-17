@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Chit Chat Logo">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+    <linearGradient id="bubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98" />
+      <stop offset="100%" stop-color="#e0e7ff" stop-opacity="0.92" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0f172a" flood-opacity="0.28" />
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bgGrad)" />
+  <g filter="url(#softShadow)">
+    <!-- Back bubble -->
+    <path d="M168 136h196c35.3 0 64 28.7 64 64v104c0 35.3-28.7 64-64 64h-36l-52 44c-6.6 5.6-16.8.9-16.8-7.8V368h-91.2c-35.3 0-64-28.7-64-64V200c0-35.3 28.7-64 64-64z" fill="#ffffff" fill-opacity="0.22" />
+    <!-- Front secure chat bubble -->
+    <path d="M132 164h204c35.3 0 64 28.7 64 64v108c0 35.3-28.7 64-64 64H212l-62 50c-6.8 5.5-17 .7-17-8V400h-1c-35.3 0-64-28.7-64-64V228c0-35.3 28.7-64 64-64z" fill="url(#bubbleGrad)" />
+    <!-- Lock symbol inside front bubble -->
+    <rect x="198" y="266" width="72" height="56" rx="14" fill="#4f46e5" />
+    <path d="M214 266v-18c0-11 9-20 20-20s20 9 20 20v18" fill="none" stroke="#4f46e5" stroke-width="14" stroke-linecap="round" />
+    <circle cx="234" cy="291" r="6" fill="#ffffff" />
+    <path d="M234 297v10" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+  </g>
+</svg>

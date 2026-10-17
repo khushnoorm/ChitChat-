@@ -1,0 +1,46 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isAllowedAttachmentType() {
+      return request.resource.contentType.matches('image/(jpeg|png|webp|gif)')
+        || request.resource.contentType == 'application/pdf'
+        || request.resource.contentType == 'text/plain';
+    }
+
+    function isAllowedImageType() {
+      return request.resource.contentType.matches('image/(jpeg|png|webp|gif)');
+    }
+
+    match /avatars/{userId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+        && request.auth.uid == userId
+        && isAllowedImageType()
+        && request.resource.size <= 2 * 1024 * 1024;
+    }
+
+    match /attachments/{conversationId}/{senderId}/{fileName} {
+      allow read: if isSignedIn()
+        && request.auth.uid in firestore.get(/databases/(default)/documents/conversations/$(conversationId)).data.participants;
+
+      allow create, update: if isSignedIn()
+        && request.auth.uid == senderId
+        && request.auth.uid in firestore.get(/databases/(default)/documents/conversations/$(conversationId)).data.participants
+        && isAllowedAttachmentType()
+        && request.resource.size > 0
+        && request.resource.size <= 5 * 1024 * 1024;
+
+      allow delete: if isSignedIn() && request.auth.uid == senderId;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

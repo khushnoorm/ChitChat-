@@ -1,0 +1,20 @@
+{
+  "name": "Chit Chat — Private Messaging",
+  "short_name": "Chit Chat",
+  "description": "Modern, privacy-first real-time private messaging web application.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1120",
+  "theme_color": "#4f46e5",
+  "categories": ["social", "communication", "productivity"],
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
